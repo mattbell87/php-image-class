@@ -41,33 +41,44 @@ function UploadFile($fieldname, $saveto, $allowedregex = ".*")
 
 	return $saveto;
 }
+
 $message = "";
 $imgpath = "";
 
-//If a form is waiting to be processed
+//Process a form if there's one waiting
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
 	try
 	{
+		//Create the directories if they don't exist
 		if (!is_dir('./images'))
 			mkdir('./images');
 		if (!is_dir('./thumbnails'))
 			mkdir('./thumbnails');
 
+		//Upload the file to ./images
 		$imgpath = UploadFile('myfile', './images/', ".*\.(?:jpg|png)");
+
+		//Open the image from the uploaded file
 		$img = new Image($imgpath);
+
+		//Resize the image
 		$img->resize(130,130);
 
+		//Get the thumbnail path (./thumbnails)
 		$pathinfo = pathinfo($imgpath);
 		$name = $pathinfo['basename'];
 		$imgpath = './thumbnails/' . $name;
 
+		//Save the resized image to the thumbnail path
 		$img->save($imgpath);
 
+		//Show a success message :)
 		$message = "Image uploaded successfully!";
 	}
 	catch(Exception $e)
 	{
+		//Give an error
 		$message = $e->getMessage();
 		$imgpath = "";
 	}
