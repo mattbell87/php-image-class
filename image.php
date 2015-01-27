@@ -84,10 +84,13 @@ class Image
 	//Save the image, if path isn't specified the original is overwritten
 	function save($path = null)
 	{
-		if ($path == null)
-			$path = $this->path;
+		if ($path != null)
+			$this->path = $path;
 
 		$this->img = call_user_func($this->gdSave, $this->img, $this->path);
+
+		if (!$this->img)
+			throw(new Exception("Could not save \"$this->name\" to the given path."));
 	}
 
 	//Set up the GD functions based on the file extension
