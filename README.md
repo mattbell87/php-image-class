@@ -1,8 +1,6 @@
 PHP class for generating thumbnails
 ===================================
 
-Matt Bell 2015
-
 This is a simple straight-forward PHP class for generating thumbnails. This class will always keep the aspect ratio of your image. 
 
 This is based on GD which on most servers is built in to PHP so there is no need for installing any PHP extensions.
