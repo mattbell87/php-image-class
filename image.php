@@ -39,7 +39,7 @@ class Image
 	//Resize the image
 	function resize($maxwidth, $maxheight = null)
 	{
-		if (!is_int($maxwidth) || !is_int($maxheight))
+		if (!is_int($maxwidth) && !is_int($maxheight))
 		{
 			throw(new Exception("At least one dimension is needed for resizing: \"$this->name\""));
 			return false;
